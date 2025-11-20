@@ -1,9 +1,13 @@
 # Sentiment Analyzer 
-This project is a C++-based text emotion/sentiment classification system that identifies the emotion category of any user-given sentence.
-It uses three different machine learning algorithms implemented fully from scratch without external libraries:
+The Emotion/Sentiment Analyzer is a C++-based machine learning project designed to automatically classify text into six emotion categories:
+Joy, Sadness, Anger, Fear, Surprise, and Neutral.
 
-🔹 Vector Space Model (TF-IDF + Cosine Similarity)
-🔹 Naïve Bayes Classifier
-🔹 Logistic Regression (SGD + L2 Regularization)
+The system analyzes both training data and real-time user input using three different machine learning algorithms:
 
-The system is trained on a large labeled dataset and can classify user input in real time.
+Vector Space Model (VSM)
+
+Naive Bayes Classifier
+
+Logistic Regression
+
+The main goal is to compare the accuracy and performance of these three algorithms for emotion classification and provide users with clear predictions for any sentence they type.
