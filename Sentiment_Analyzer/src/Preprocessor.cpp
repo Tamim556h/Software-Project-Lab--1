@@ -146,7 +146,6 @@ std::vector<std::string> Preprocessor::process(const std::string &text) {
             neg += word;
             if (!is_stopword(neg)){
                 tokens.push_back(neg);
-            }
         } 
         else {
             if (!is_stopword(word)){

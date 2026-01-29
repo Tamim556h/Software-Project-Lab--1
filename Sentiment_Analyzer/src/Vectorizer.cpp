@@ -45,7 +45,6 @@ std::vector<int> Vectorizer::transformSingle(const std::vector<std::string> &tok
 // Transform multiple documents
 std::vector<std::vector<int>> Vectorizer::transform(const std::vector<std::vector<std::string>> &documents) {
     std::vector<std::vector<int>> matrix;
-    
     for (size_t i = 0; i < documents.size(); ++i) {
         matrix.push_back(transformSingle(documents[i]));
     }

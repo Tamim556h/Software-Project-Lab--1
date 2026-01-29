@@ -158,13 +158,13 @@ std::string NaiveBayes::predict(const std::vector<std::string> &tokens) {
 
     if (bestClass == "" && classes.size() > 0) bestClass = classes[0];
 
+    
     return bestClass;
 }
 
 // compute accuracy on dataset
 double NaiveBayes::accuracy(const std::vector<std::vector<std::string>> &docs, 
                             const std::vector<std::string> &labels) {
-                                
     int n = (int)docs.size();
     if (n == 0) return 0.0;
     int correct = 0;

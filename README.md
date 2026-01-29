@@ -15,4 +15,4 @@ how to run :
 to compile => run the command in Sentyment_Analyzer directory 
 g++ -std=c++11 -o bin/emotion_ditector src/*.cpp -I./include 
 then :
-./bin/emotion_detector
+./bin/emotion_ditector

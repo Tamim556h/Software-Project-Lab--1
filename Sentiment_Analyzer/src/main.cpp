@@ -257,14 +257,13 @@ void predictEmotion() {
 }
 
 int main() {
-    
     std::string dataPath = "data/dataset.csv";
     std::string stopPath = "data/stopwords.csv";
 
     // Load data once
     std::vector<std::string> rawTexts, labels;
     loadCSV(dataPath, rawTexts, labels);
-
+    
     if (rawTexts.size() == 0) {
         std::cerr << "[ERROR] No data loaded. Ensure " << dataPath << " exists.\n";
         return 1;
@@ -278,7 +277,7 @@ int main() {
     while (true) {
         displayMainMenu();
         std::string choice;
-
+        
         if (!std::getline(std::cin, choice)) break;
 
         if (choice == "1") {
@@ -305,7 +304,6 @@ int main() {
         else {
             std::cout << "[ERROR] Invalid option. Please select 1-4.\n";
         }
-
     }
 
     return 0;
