@@ -7,13 +7,8 @@
 /**
  * @class Preprocessor
  * @brief Text preprocessing for emotion detection
- * 
- * Handles tokenization, lowercasing, stopword removal, and negation handling.
- * All utilities are implemented manually without external NLP libraries.
- * 
- * Negation handling: Words preceded by negation markers (not, no, never, etc.)
- * are marked with a NEG suffix to preserve sentiment context.
  */
+
 class Preprocessor {
 private:
     std::vector<std::string> stopwords;

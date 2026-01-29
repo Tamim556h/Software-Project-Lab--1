@@ -12,6 +12,7 @@
  * Implements Naive Bayes with Laplace smoothing for text classification.
  * Assumes independence between features (bag-of-words assumption).
  */
+
 class NaiveBayes {
 private:
     std::vector<std::string> classes; // list of emotion labels
@@ -31,6 +32,7 @@ public:
                             const std::vector<std::string> &labels, 
                             const std::vector<std::string> &vocab);
     std::string predict(const std::vector<std::string> &tokens);
+    
     double accuracy(const std::vector<std::vector<std::string>> &docs, 
                     const std::vector<std::string> &labels);
 };

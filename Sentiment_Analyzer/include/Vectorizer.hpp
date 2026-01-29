@@ -11,6 +11,7 @@
  * Converts tokenized documents into numerical feature vectors
  * using vocabulary-based count representation.
  */
+
 class Vectorizer {
 private:
     std::vector<std::string> vocabulary; // list of unique words

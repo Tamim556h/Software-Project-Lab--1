@@ -18,29 +18,41 @@ void loadCSV(const std::string &path, std::vector<std::string> &texts, std::vect
     texts.clear();
     labels.clear();
     std::ifstream infile(path.c_str());
+
     if (!infile.is_open()) {
         std::cerr << "Error: could not open file: " << path << std::endl;
         return;
     }
+
     std::string line;
     bool first = true;
-    while (std::getline(infile, line)) {
-        if (first) { first = false; continue; } // skip header
-        // find last comma (so text can contain commas)
+
+    while (std::getline(infile, line)) 
+    {
+        if (first) { 
+            first = false; continue; // skip header
+        } 
+
         int pos = -1;
         for (int i = (int)line.size() - 1; i >= 0; --i) {
-            if (line[i] == ',') { pos = i; break; }
+            if (line[i] == ',') { 
+                pos = i; break; 
+            }
         }
         if (pos == -1) continue;
+
         std::string text = line.substr(0, pos);
         std::string label = line.substr(pos + 1);
+        
         // trim spaces from label
         size_t s = 0;
         while (s < label.size() && (label[s] == ' ' || label[s] == '\t' || label[s] == '\r' || label[s] == '\n')) s++;
         size_t e = label.size();
+
         while (e > s && (label[e-1] == ' ' || label[e-1] == '\t' || label[e-1] == '\r' || label[e-1] == '\n')) e--;
         if (e > s) label = label.substr(s, e - s);
         else label = "";
+
         texts.push_back(text);
         labels.push_back(label);
     }
@@ -48,7 +60,7 @@ void loadCSV(const std::string &path, std::vector<std::string> &texts, std::vect
 }
 
 bool isValidInput(const std::string &input) {
-    // Check if input is empty
+    
     if (input.empty()) return false;
     
     // Check if input has at least one letter
@@ -67,6 +79,7 @@ bool isValidInput(const std::string &input) {
 }
 
 void displayMainMenu() {
+
     std::cout << "\n╔═══════════════════════════════════════════════════════╗" << std::endl;
     std::cout << "║          EMOTION DETECTOR - MAIN MENU                 ║" << std::endl;
     std::cout << "╠═══════════════════════════════════════════════════════╣" << std::endl;
@@ -76,9 +89,11 @@ void displayMainMenu() {
     std::cout << "║ 4. Exit                                               ║" << std::endl;
     std::cout << "╚═══════════════════════════════════════════════════════╝" << std::endl;
     std::cout << "Select option (1-4): ";
+
 }
 
-// Global model variables and trained data
+// Global model variables and trained data =>
+
 NaiveBayes g_nb;
 VSM g_vsm;
 LogisticRegression g_lr(0.01, 100);
@@ -102,6 +117,7 @@ void trainModels(const std::vector<std::string> &rawTexts, const std::vector<std
         }
     }
     std::cout << "\n[INFO] Unique emotions detected: " << g_uniqueLabels.size() << std::endl;
+
     for (const auto &emotion : g_uniqueLabels) {
         std::cout << "  - " << emotion << std::endl;
     }
@@ -124,43 +140,50 @@ void trainModels(const std::vector<std::string> &rawTexts, const std::vector<std
     std::cout << "╔═══════════════════════════════════════════════════════╗" << std::endl;
     std::cout << "║        TRAINING ALL THREE ALGORITHMS                  ║" << std::endl;
     std::cout << "╠═══════════════════════════════════════════════════════╣" << std::endl;
+
     
     // Train Naive Bayes
     std::cout << "║ 1. Training Naive Bayes...                            ║" << std::endl;
     g_nb.trainFromDocuments(docs, labels, vocab);
     std::vector<std::string> nbPredictions;
+
     for (size_t i = 0; i < docs.size(); ++i) {
         nbPredictions.push_back(g_nb.predict(docs[i]));
     }
     g_nbMetrics = ModelEvaluator::evaluate(nbPredictions, labels, g_uniqueLabels);
     double nbAcc = g_nbMetrics.accuracy;
-    std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (nbAcc * 100.0) << "% ║" << std::endl;
+    std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (nbAcc * 100.0) << "%   ║" << std::endl;
+
 
     // Train Vector Space Model (VSM)
     std::cout << "║ 2. Training Vector Space Model (VSM)...               ║" << std::endl;
     g_vsm.trainFromVectors(countVectors, labels);
     std::vector<std::string> vsmPredictions;
+
     for (size_t i = 0; i < countVectors.size(); ++i) {
         vsmPredictions.push_back(g_vsm.predict(countVectors[i]));
     }
     g_vsmMetrics = ModelEvaluator::evaluate(vsmPredictions, labels, g_uniqueLabels);
     double vsmAcc = g_vsmMetrics.accuracy;
-    std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (vsmAcc * 100.0) << "% ║" << std::endl;
+    std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (vsmAcc * 100.0) << "%   ║" << std::endl;
+
 
     // Train Logistic Regression
     std::cout << "║ 3. Training Logistic Regression...                    ║" << std::endl;
     g_lr.trainFromVectors(countVectors, labels);
     std::vector<std::string> lrPredictions;
+
     for (size_t i = 0; i < countVectors.size(); ++i) {
         lrPredictions.push_back(g_lr.predict(countVectors[i]));
     }
     g_lrMetrics = ModelEvaluator::evaluate(lrPredictions, labels, g_uniqueLabels);
     double lrAcc = g_lrMetrics.accuracy;
-    std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (lrAcc * 100.0) << "% ║" << std::endl;
+    std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (lrAcc * 100.0) << "%   ║" << std::endl;
     
     std::cout << "╚═══════════════════════════════════════════════════════╝" << std::endl;
 
-    // Create comparison table
+    
+
     std::cout << "\n╔═══════════════════════════════════════════════════════╗" << std::endl;
     std::cout << "║            ACCURACY COMPARISON TABLE                  ║" << std::endl;
     std::cout << "╠════════════════════════════╦═════════════════════════╣" << std::endl;
@@ -175,13 +198,14 @@ void trainModels(const std::vector<std::string> &rawTexts, const std::vector<std
 }
 
 void predictEmotion() {
+
     if (!g_trained) {
         std::cout << "\n[ERROR] Models not trained yet. Please train models first (option 1).\n";
         return;
     }
 
     std::cout << "\n╔═══════════════════════════════════════════════════════╗" << std::endl;
-    std::cout << "║         EMOTION PREDICTION - INTERACTIVE MODE          ║" << std::endl;
+    std::cout << "║         EMOTION PREDICTION - INTERACTIVE MODE         ║" << std::endl;
     std::cout << "╠═══════════════════════════════════════════════════════╣" << std::endl;
     std::cout << "║ Enter sentences to classify emotions.                 ║" << std::endl;
     std::cout << "║ (Type 'back' to return to main menu)                  ║" << std::endl;
@@ -219,26 +243,28 @@ void predictEmotion() {
         std::string vsmPred = g_vsm.predict(countVec);
         std::string lrPred = g_lr.predict(countVec);
 
-        // Display predictions
+        
         std::cout << "\n╔═══════════════════════════════════════════════════════╗" << std::endl;
         std::cout << "║                 EMOTION PREDICTIONS                   ║" << std::endl;
         std::cout << "╠════════════════════════════╦═════════════════════════╣" << std::endl;
         std::cout << "║ Algorithm                  ║ Predicted Emotion       ║" << std::endl;
         std::cout << "╠════════════════════════════╬═════════════════════════╣" << std::endl;
         std::cout << "║ Naive Bayes                ║ " << std::left << std::setw(21) << nbPred << " ║" << std::endl;
-        std::cout << "║ Vector Space Model (VSM)   ║ " << std::left << std::setw(21) << vsmPred << " ║" << std::endl;
+        //std::cout << "║ Vector Space Model (VSM)   ║ " << std::left << std::setw(21) << vsmPred << " ║" << std::endl;
         std::cout << "║ Logistic Regression        ║ " << std::left << std::setw(21) << lrPred << " ║" << std::endl;
         std::cout << "╚════════════════════════════╩═════════════════════════╝\n" << std::endl;
     }
 }
 
 int main() {
+    
     std::string dataPath = "data/dataset.csv";
     std::string stopPath = "data/stopwords.csv";
 
     // Load data once
     std::vector<std::string> rawTexts, labels;
     loadCSV(dataPath, rawTexts, labels);
+
     if (rawTexts.size() == 0) {
         std::cerr << "[ERROR] No data loaded. Ensure " << dataPath << " exists.\n";
         return 1;
@@ -252,6 +278,7 @@ int main() {
     while (true) {
         displayMainMenu();
         std::string choice;
+
         if (!std::getline(std::cin, choice)) break;
 
         if (choice == "1") {
@@ -263,7 +290,8 @@ int main() {
         else if (choice == "3") {
             if (!g_trained) {
                 std::cout << "\n[ERROR] Models not trained yet. Please train models first (option 1).\n";
-            } else {
+            } 
+            else {
                 std::cout << "\n";
                 ModelEvaluator::printDetailedReport("NAIVE BAYES", g_nbMetrics);
                 ModelEvaluator::printDetailedReport("VECTOR SPACE MODEL (VSM)", g_vsmMetrics);
@@ -277,6 +305,7 @@ int main() {
         else {
             std::cout << "[ERROR] Invalid option. Please select 1-4.\n";
         }
+
     }
 
     return 0;
