@@ -27,13 +27,13 @@ Sentiment_Analyzer/
 
 │
 
-├── src/            # Source files (.cpp)
+├── src/                  # Source files (.cpp)
 
-├── include/        # Header files
+├── include/              # Header files
 
-├── bin/            # Compiled output
+├── bin/                  # Compiled output
 
-└── dataset/        # Training data
+└── dataset/              # Training data
 
 # ⚙️ How to Compile
 Navigate to the project root directory:
