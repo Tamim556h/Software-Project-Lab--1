@@ -1,12 +1,14 @@
-# 🎭 Sentiment Analyzer
+#  Sentiment Analyzer:
 
-📌 Project Overview: 
+
 The Sentiment Analyzer is a C++-based machine learning project designed to automatically classify text into six emotion categories:
 
 😊 Joy  😢 Sadness  😠 Anger    😨 Fear 😲 Surprise 😐 Disgust
 
 The system analyzes both:
+
 📚 Training dataset
+
 ⌨️ Real-time user input
 
 🧠 Machine Learning Algorithms Used 
