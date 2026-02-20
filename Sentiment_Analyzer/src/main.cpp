@@ -155,21 +155,21 @@ void trainModels(const std::vector<std::string> &rawTexts, const std::vector<std
     std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (nbAcc * 100.0) << "%   ║" << std::endl;
 
 
-    // Train Vector Space Model (VSM)
-    std::cout << "║ 2. Training Vector Space Model (VSM)...               ║" << std::endl;
-    g_vsm.trainFromVectors(countVectors, labels);
-    std::vector<std::string> vsmPredictions;
+    // // Train Vector Space Model (VSM)
+    // std::cout << "║ 2. Training Vector Space Model (VSM)...               ║" << std::endl;
+    // g_vsm.trainFromVectors(countVectors, labels);
+    // std::vector<std::string> vsmPredictions;
 
-    for (size_t i = 0; i < countVectors.size(); ++i) {
-        vsmPredictions.push_back(g_vsm.predict(countVectors[i]));
-    }
-    g_vsmMetrics = ModelEvaluator::evaluate(vsmPredictions, labels, g_uniqueLabels);
-    double vsmAcc = g_vsmMetrics.accuracy;
-    std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (vsmAcc * 100.0) << "%   ║" << std::endl;
+    // for (size_t i = 0; i < countVectors.size(); ++i) {
+    //     vsmPredictions.push_back(g_vsm.predict(countVectors[i]));
+    // }
+    // g_vsmMetrics = ModelEvaluator::evaluate(vsmPredictions, labels, g_uniqueLabels);
+    // double vsmAcc = g_vsmMetrics.accuracy;
+    // std::cout << "║    Accuracy: " << std::fixed << std::setprecision(2) << std::setw(38) << (vsmAcc * 100.0) << "%   ║" << std::endl;
 
 
     // Train Logistic Regression
-    std::cout << "║ 3. Training Logistic Regression...                    ║" << std::endl;
+    std::cout << "║ 2. Training Logistic Regression...                    ║" << std::endl;
     g_lr.trainFromVectors(countVectors, labels);
     std::vector<std::string> lrPredictions;
 
@@ -190,7 +190,7 @@ void trainModels(const std::vector<std::string> &rawTexts, const std::vector<std
     std::cout << "║ Algorithm                  ║ Training Accuracy       ║" << std::endl;
     std::cout << "╠════════════════════════════╬═════════════════════════╣" << std::endl;
     std::cout << "║ Naive Bayes                ║ " << std::fixed << std::setprecision(2) << std::setw(19) << (nbAcc * 100.0) << "% ║" << std::endl;
-    std::cout << "║ Vector Space Model (VSM)   ║ " << std::fixed << std::setprecision(2) << std::setw(19) << (vsmAcc * 100.0) << "% ║" << std::endl;
+    //std::cout << "║ Vector Space Model (VSM)   ║ " << std::fixed << std::setprecision(2) << std::setw(19) << (vsmAcc * 100.0) << "% ║" << std::endl;
     std::cout << "║ Logistic Regression        ║ " << std::fixed << std::setprecision(2) << std::setw(19) << (lrAcc * 100.0) << "% ║" << std::endl;
     std::cout << "╚════════════════════════════╩═════════════════════════╝" << std::endl;
 
