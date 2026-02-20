@@ -50,8 +50,13 @@ After successful compilation:
 ./bin/emotion_detector
 
 📊 Features
+
 Text preprocessing
+
 Feature extraction
+
 Probability-based classification
+
 Multi-class emotion detection
+
 Accuracy comparison between models
