@@ -24,6 +24,7 @@ Provide clear predictions for user-input sentences
 
 # 🏗️ Project Structure
 Sentiment_Analyzer/
+
 │
 ├── src/            # Source files (.cpp)
 ├── include/        # Header files
@@ -32,12 +33,16 @@ Sentiment_Analyzer/
 
 # ⚙️ How to Compile
 Navigate to the project root directory:
+
 cd Sentiment_Analyzer
+
 Then compile using:
+
 g++ -std=c++11 -o bin/emotion_detector src/*.cpp -I./include
 
 # ▶️ How to Run
 After successful compilation:
+
 ./bin/emotion_detector
 
 📊 Features
