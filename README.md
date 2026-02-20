@@ -24,14 +24,15 @@ Provide clear predictions for user-input sentences
 
 # 🏗️ Project Structure
 Sentiment_Analyzer/
+
 │
-
+|
 ├── src/            # Source files (.cpp)
-
+|
 ├── include/        # Header files
-
+|
 ├── bin/            # Compiled output
-
+|
 └── dataset/        # Training data
 
 # ⚙️ How to Compile
